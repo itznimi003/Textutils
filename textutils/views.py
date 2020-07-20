@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 def index(request):
-    return render(request,'/Textutils/index.html')
+    return render(request,'/Textutils/templates/index.html')
 
 def analyze(request):
     #Get the text
@@ -29,26 +29,26 @@ def analyze(request):
         for char in djtext:
             analyzed  = analyzed + char.upper()
             params = {'purpose': 'changed to uppercase','analyzed_text': analyzed }
-        return render(request, '/Textutils/analyze.html', params)
+        return render(request, '/Textutils/templates/analyze.html', params)
     elif(newlineremover=="on"):
         analyzed = ""
         for char in djtext:
             if char!="\n":
                 analyzed  = analyzed + char
         params = {'purpose': 'remove new lines','analyzed_text': analyzed }
-        return render(request, '/Textutils/analyze.html', params)
+        return render(request, '/Textutils/templates/analyze.html', params)
     elif(extraspaceremover=="on"):
         analyzed = ""
         for index, char in enumerate(djtext):
             if not(djtext[index] == " " and djtext[index+1] == " "):
                 analyzed  = analyzed + char
         params = {'purpose': 'extraspaceremover','analyzed_text': analyzed }
-        return render(request, '/Textutils/analyze.html', params)
+        return render(request, '/Textutils/templates/analyze.html', params)
     elif(charactercounter=="on"):
         analyzed = ""
         for char in djtext:
             analyzed  = char + char.count(char)
             params = {'purpose': 'count the characters','analyzed_text': analyzed }
-        return render(request, '/Textutils/analyze.html', params)    
+        return render(request, '/Textutils/templates/analyze.html', params)    
     else:
         return HttpResponse("Error")
